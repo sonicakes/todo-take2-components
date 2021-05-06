@@ -9,7 +9,7 @@
         @complete="taskComplete"
       />
     </ul>
-    <AddTask />
+    <AddTask @new-added="addNewTask" />
   </div>
 </template>
 
@@ -41,6 +41,12 @@ export default {
     taskComplete(taskStatus) {
       this.tasks.forEach(function(arrayItem) {
         arrayItem.completed = taskStatus;
+      });
+    },
+    addNewTask(task) {
+      this.tasks.push({
+        name: task,
+        completed: false,
       });
     },
   },
