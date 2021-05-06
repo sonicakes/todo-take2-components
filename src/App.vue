@@ -1,18 +1,50 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Welcome to App"/>
+    <ul>
+      <Task
+        v-for="task in tasks"
+        :key="task.name"
+        :name="task.name"
+        :completed="task.completed"
+        @complete="taskComplete"
+      />
+    </ul>
+    <AddTask />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AddTask from "./components/AddTask.vue";
+import Task from "./components/Task";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Task,
+    AddTask,
+  },
+  data() {
+    return {
+      tasks: [
+        {
+          name: "wash hair",
+          completed: false,
+        },
+        {
+          name: "walk the dogs",
+          completed: true,
+        },
+      ],
+    };
+  },
+  methods: {
+    taskComplete(taskStatus) {
+      this.tasks.forEach(function(arrayItem) {
+        arrayItem.completed = taskStatus;
+      });
+    },
+  },
+};
 </script>
 
 <style>
@@ -23,5 +55,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.completed {
+  color: red;
+  text-decoration: line-through;
 }
 </style>
